@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+master
+---
+ * Add support for `{% trans as 'id' %}Default translation suggestion{% endtrans %}`
+
 5.3
 ---
 
