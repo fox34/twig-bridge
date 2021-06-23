@@ -1,5 +1,5 @@
 {
-    "name": "symfony/twig-bridge",
+    "name": "fox34/twig-bridge",
     "type": "symfony-bridge",
     "description": "Provides integration for Twig with various Symfony components",
     "keywords": [],
