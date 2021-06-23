@@ -60,7 +60,11 @@
         "symfony/http-foundation": "<5.3",
         "symfony/http-kernel": "<4.4",
         "symfony/translation": "<5.2",
+        "symfony/twig-bridge": "*",
         "symfony/workflow": "<5.2"
+    },
+    "replace": {
+        "symfony/twig-bridge": "5.3.*"
     },
     "suggest": {
         "symfony/finder": "",
