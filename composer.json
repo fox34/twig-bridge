@@ -64,7 +64,7 @@
         "symfony/workflow": "<5.2"
     },
     "replace": {
-        "symfony/twig-bridge": "5.4.*"
+        "symfony/twig-bridge": "5.4.36"
     },
     "suggest": {
         "symfony/finder": "",
