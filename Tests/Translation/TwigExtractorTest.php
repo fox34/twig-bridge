@@ -22,6 +22,8 @@ use Twig\Loader\LoaderInterface;
 
 class TwigExtractorTest extends TestCase
 {
+    public const CUSTOM_DOMAIN = 'domain';
+
     /**
      * @dataProvider getExtractData
      */
@@ -54,7 +56,7 @@ class TwigExtractorTest extends TestCase
         }
     }
 
-    public function getExtractData()
+    public static function getExtractData()
     {
         return [
             ['{{ "new key" | trans() }}', ['new key' => 'messages']],
@@ -76,6 +78,11 @@ class TwigExtractorTest extends TestCase
 
             // make sure this works with twig's named arguments
             ['{{ "new key" | trans(domain="domain") }}', ['new key' => 'domain']],
+
+            // make sure this works with const domain
+            ['{{ "new key" | trans({}, constant(\'Symfony\\\\Bridge\\\\Twig\\\\Tests\\\\Translation\\\\TwigExtractorTest::CUSTOM_DOMAIN\')) }}', ['new key' => self::CUSTOM_DOMAIN]],
+            ['{% trans from constant(\'Symfony\\\\Bridge\\\\Twig\\\\Tests\\\\Translation\\\\TwigExtractorTest::CUSTOM_DOMAIN\') %}new key{% endtrans %}', ['new key' => self::CUSTOM_DOMAIN]],
+            ['{{ t("new key", {}, constant(\'Symfony\\\\Bridge\\\\Twig\\\\Tests\\\\Translation\\\\TwigExtractorTest::CUSTOM_DOMAIN\')) | trans() }}', ['new key' => self::CUSTOM_DOMAIN]],
 
             // concat translations
             ['{{ ("new" ~ " key") | trans() }}', ['new key' => 'messages']],
@@ -102,7 +109,7 @@ class TwigExtractorTest extends TestCase
         $this->assertSame($messages, $catalogue->all());
     }
 
-    public function resourcesWithSyntaxErrorsProvider(): array
+    public static function resourcesWithSyntaxErrorsProvider(): array
     {
         return [
             [__DIR__.'/../Fixtures', ['messages' => ['Hi!' => 'Hi!']]],
@@ -133,7 +140,7 @@ class TwigExtractorTest extends TestCase
         $this->assertEquals('Hi!', $catalogue->get('Hi!', 'messages'));
     }
 
-    public function resourceProvider(): array
+    public static function resourceProvider(): array
     {
         $directory = __DIR__.'/../Fixtures/extractor/';
 

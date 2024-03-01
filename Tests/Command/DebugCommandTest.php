@@ -84,7 +84,7 @@ class DebugCommandTest extends TestCase
         $this->assertStringMatchesFormat($output, $tester->getDisplay(true));
     }
 
-    public function getDebugTemplateNameTestData()
+    public static function getDebugTemplateNameTestData()
     {
         $defaultPaths = [
             'templates/' => null,
@@ -315,13 +315,13 @@ TXT
         $this->assertSame($expectedSuggestions, $suggestions);
     }
 
-    public function provideCompletionSuggestions(): iterable
+    public static function provideCompletionSuggestions(): iterable
     {
         yield 'name' => [['email'], []];
         yield 'option --format' => [['--format', ''], ['text', 'json']];
     }
 
-    private function createCommandTester(array $paths = [], array $bundleMetadata = [], string $defaultPath = null, bool $useChainLoader = false, array $globals = []): CommandTester
+    private function createCommandTester(array $paths = [], array $bundleMetadata = [], ?string $defaultPath = null, bool $useChainLoader = false, array $globals = []): CommandTester
     {
         $projectDir = \dirname(__DIR__).\DIRECTORY_SEPARATOR.'Fixtures';
         $loader = new FilesystemLoader([], $projectDir);
