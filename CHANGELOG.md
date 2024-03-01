@@ -6,6 +6,10 @@ CHANGELOG
 
 * Add `github` format & autodetection to render errors as annotations when
   running the Twig linter command in a Github Actions environment.
+=======
+master
+---
+ * Add support for `{% trans as 'id' %}Default translation suggestion{% endtrans %}`
 
 5.3
 ---
