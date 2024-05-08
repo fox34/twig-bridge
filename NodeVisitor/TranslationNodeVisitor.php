@@ -82,6 +82,7 @@ final class TranslationNodeVisitor implements NodeVisitorInterface
             $this->messages[] = [
                 $node->getNode('body')->getAttribute('data'),
                 $node->hasNode('domain') ? $this->getReadDomainFromNode($node->getNode('domain')) : null,
+                $node->hasNode('id') ? $this->getReadIdFromNode($node->getNode('id')) : null,
             ];
         } elseif (
             $node instanceof FilterExpression
@@ -166,6 +167,15 @@ final class TranslationNodeVisitor implements NodeVisitorInterface
         }
 
         return self::UNDEFINED_DOMAIN;
+    }
+
+    private function getReadIdFromNode(Node $node): ?string
+    {
+        if ($node instanceof ConstantExpression) {
+            return $node->getAttribute('value');
+        }
+
+        return null;
     }
 
     private function getConcatValueFromNode(Node $node, ?string $value): ?string

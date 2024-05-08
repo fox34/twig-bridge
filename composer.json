@@ -1,5 +1,5 @@
 {
-    "name": "symfony/twig-bridge",
+    "name": "fox34/twig-bridge",
     "type": "symfony-bridge",
     "description": "Provides integration for Twig with various Symfony components",
     "keywords": [],
@@ -63,7 +63,11 @@
         "symfony/mime": "<6.4",
         "symfony/serializer": "<6.4",
         "symfony/translation": "<6.4",
+        "symfony/twig-bridge": "*",
         "symfony/workflow": "<6.4"
+    },
+    "replace": {
+        "symfony/twig-bridge": "7.0.7"
     },
     "autoload": {
         "psr-4": { "Symfony\\Bridge\\Twig\\": "" },
