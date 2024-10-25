@@ -13,6 +13,7 @@ namespace Symfony\Bridge\Twig\Tests\Node;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode;
+use Twig\Attribute\FirstClassTwigCallableReady;
 use Twig\Compiler;
 use Twig\Environment;
 use Twig\Extension\CoreExtension;
@@ -22,16 +23,28 @@ use Twig\Node\Expression\ConditionalExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
 use Twig\Node\Node;
+use Twig\Node\Nodes;
+use Twig\TwigFunction;
 
 class SearchAndRenderBlockNodeTest extends TestCase
 {
     public function testCompileWidget()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_widget', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_widget'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_widget', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -46,15 +59,29 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileWidgetWithVariables()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ArrayExpression([
-                new ConstantExpression('foo', 0),
-                new ConstantExpression('bar', 0),
-            ], 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                ], 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                ], 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_widget', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_widget'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_widget', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -69,12 +96,23 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithLabel()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ConstantExpression('my label', 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ConstantExpression('my label', 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ConstantExpression('my label', 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -89,12 +127,23 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithNullLabel()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ConstantExpression(null, 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ConstantExpression(null, 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ConstantExpression(null, 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -111,12 +160,23 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithEmptyStringLabel()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ConstantExpression('', 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ConstantExpression('', 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ConstantExpression('', 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -133,11 +193,21 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithDefaultLabel()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -152,16 +222,31 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithAttributes()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ConstantExpression(null, 0),
-            new ArrayExpression([
-                new ConstantExpression('foo', 0),
-                new ConstantExpression('bar', 0),
-            ], 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ConstantExpression(null, 0),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                ], 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ConstantExpression(null, 0),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                ], 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -179,18 +264,35 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithLabelAndAttributes()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ConstantExpression('value in argument', 0),
-            new ArrayExpression([
-                new ConstantExpression('foo', 0),
-                new ConstantExpression('bar', 0),
-                new ConstantExpression('label', 0),
-                new ConstantExpression('value in attributes', 0),
-            ], 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ConstantExpression('value in argument', 0),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                    new ConstantExpression('label', 0),
+                    new ConstantExpression('value in attributes', 0),
+                ], 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ConstantExpression('value in argument', 0),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                    new ConstantExpression('label', 0),
+                    new ConstantExpression('value in attributes', 0),
+                ], 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -205,20 +307,39 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithLabelThatEvaluatesToNull()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ConditionalExpression(
-                // if
-                new ConstantExpression(true, 0),
-                // then
-                new ConstantExpression(null, 0),
-                // else
-                new ConstantExpression(null, 0),
-                0
-            ),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ConditionalExpression(
+                    // if
+                    new ConstantExpression(true, 0),
+                    // then
+                    new ConstantExpression(null, 0),
+                    // else
+                    new ConstantExpression(null, 0),
+                    0
+                ),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ConditionalExpression(
+                    // if
+                    new ConstantExpression(true, 0),
+                    // then
+                    new ConstantExpression(null, 0),
+                    // else
+                    new ConstantExpression(null, 0),
+                    0
+                ),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
@@ -237,26 +358,48 @@ class SearchAndRenderBlockNodeTest extends TestCase
 
     public function testCompileLabelWithLabelThatEvaluatesToNullAndAttributes()
     {
-        $arguments = new Node([
-            new NameExpression('form', 0),
-            new ConditionalExpression(
-                // if
-                new ConstantExpression(true, 0),
-                // then
-                new ConstantExpression(null, 0),
-                // else
-                new ConstantExpression(null, 0),
-                0
-            ),
-            new ArrayExpression([
-                new ConstantExpression('foo', 0),
-                new ConstantExpression('bar', 0),
-                new ConstantExpression('label', 0),
-                new ConstantExpression('value in attributes', 0),
-            ], 0),
-        ]);
+        if (class_exists(Nodes::class)) {
+            $arguments = new Nodes([
+                new NameExpression('form', 0),
+                new ConditionalExpression(
+                    // if
+                    new ConstantExpression(true, 0),
+                    // then
+                    new ConstantExpression(null, 0),
+                    // else
+                    new ConstantExpression(null, 0),
+                    0
+                ),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                    new ConstantExpression('label', 0),
+                    new ConstantExpression('value in attributes', 0),
+                ], 0),
+            ]);
+        } else {
+            $arguments = new Node([
+                new NameExpression('form', 0),
+                new ConditionalExpression(
+                    new ConstantExpression(true, 0),
+                    new ConstantExpression(null, 0),
+                    new ConstantExpression(null, 0),
+                    0
+                ),
+                new ArrayExpression([
+                    new ConstantExpression('foo', 0),
+                    new ConstantExpression('bar', 0),
+                    new ConstantExpression('label', 0),
+                    new ConstantExpression('value in attributes', 0),
+                ], 0),
+            ]);
+        }
 
-        $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            $node = new SearchAndRenderBlockNode(new TwigFunction('form_label'), $arguments, 0);
+        } else {
+            $node = new SearchAndRenderBlockNode('form_label', $arguments, 0);
+        }
 
         $compiler = new Compiler(new Environment($this->createMock(LoaderInterface::class)));
 
