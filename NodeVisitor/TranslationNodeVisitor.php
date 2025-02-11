@@ -64,7 +64,6 @@ final class TranslationNodeVisitor implements NodeVisitorInterface
             $this->messages[] = [
                 $node->getNode('node')->getAttribute('value'),
                 $this->getReadDomainFromArguments($node->getNode('arguments'), 1),
-                $node->hasNode('id') ? $this->getReadIdFromNode($node->getNode('id')) : null,
             ];
         } elseif (
             $node instanceof FunctionExpression
@@ -83,6 +82,7 @@ final class TranslationNodeVisitor implements NodeVisitorInterface
             $this->messages[] = [
                 $node->getNode('body')->getAttribute('data'),
                 $node->hasNode('domain') ? $this->getReadDomainFromNode($node->getNode('domain')) : null,
+                $node->hasNode('id') ? $this->getReadIdFromNode($node->getNode('id')) : null,
             ];
         } elseif (
             $node instanceof FilterExpression
