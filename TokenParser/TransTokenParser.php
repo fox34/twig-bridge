@@ -34,6 +34,7 @@ final class TransTokenParser extends AbstractTokenParser
 
         $count = null;
         $vars = new ArrayExpression([], $lineno);
+        $id = null;
         $domain = null;
         $locale = null;
         if (!$stream->test(Token::BLOCK_END_TYPE)) {
@@ -41,6 +42,12 @@ final class TransTokenParser extends AbstractTokenParser
                 // {% trans count 5 %}
                 $stream->next();
                 $count = $this->parser->getExpressionParser()->parseExpression();
+            }
+
+            if ($stream->test('as')) {
+                // {% trans as 'id' %}
+                $stream->next();
+                $id = $this->parser->getExpressionParser()->parseExpression();
             }
 
             if ($stream->test('with')) {
@@ -74,7 +81,7 @@ final class TransTokenParser extends AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new TransNode($body, $domain, $count, $vars, $locale, $lineno);
+        return new TransNode($body, $id, $domain, $count, $vars, $locale, $lineno);
     }
 
     public function decideTransFork(Token $token): bool
