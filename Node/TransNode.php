@@ -26,9 +26,12 @@ use Twig\Node\TextNode;
 #[YieldReady]
 final class TransNode extends Node
 {
-    public function __construct(Node $body, ?Node $domain = null, ?AbstractExpression $count = null, ?AbstractExpression $vars = null, ?AbstractExpression $locale = null, int $lineno = 0)
+    public function __construct(Node $body, ?AbstractExpression $id = null, ?Node $domain = null, ?AbstractExpression $count = null, ?AbstractExpression $vars = null, ?AbstractExpression $locale = null, int $lineno = 0)
     {
         $nodes = ['body' => $body];
+        if (null !== $id) {
+            $nodes['id'] = $id;
+        }
         if (null !== $domain) {
             $nodes['domain'] = $domain;
         }
@@ -54,7 +57,7 @@ final class TransNode extends Node
             $defaults = $this->getNode('vars');
             $vars = null;
         }
-        [$msg, $defaults] = $this->compileString($this->getNode('body'), $defaults, (bool) $vars);
+        [$msg, $defaults] = $this->compileString($this->hasNode('id') ? $this->getNode('id') : $this->getNode('body'), $defaults, (bool) $vars);
         $compiler
             ->write('yield $this->env->getExtension(\'Symfony\Bridge\Twig\Extension\TranslationExtension\')->trans(')
             ->subcompile($msg)
