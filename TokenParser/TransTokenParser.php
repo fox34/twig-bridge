@@ -48,7 +48,7 @@ final class TransTokenParser extends AbstractTokenParser
             if ($stream->test('as')) {
                 // {% trans as 'id' %}
                 $stream->next();
-                $id = $this->parser->getExpressionParser()->parseExpression();
+                $id = $this->parser->parseExpression();
             }
 
             if ($stream->test('with')) {
