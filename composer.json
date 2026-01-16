@@ -70,7 +70,7 @@
         "symfony/workflow": "<6.4"
     },
     "replace": {
-        "symfony/twig-bridge": "7.4.0-RC1"
+        "symfony/twig-bridge": "7.4.3"
     },
     "autoload": {
         "psr-4": { "Symfony\\Bridge\\Twig\\": "" },
